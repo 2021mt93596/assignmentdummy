@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+  <style>
+
+  .form-instructions {
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+  }
+  .buttons .btn {
+    margin-right: 15px;
+  }
+
+  form .btn {
+    width: 100%;
+    max-width: 220px;
+  }
+
+  [data-step="4"] button.btn {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .form-progress {
+    position: relative;
+    display: block;
+    margin: 3rem auto;
+    width: 100%;
+
+  }
+
+  progress {
+    display: block;
+    position: relative;
+    top: 5px;
+    left: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
+    background: #0069D9;
+    width: 100%;
+    height: 4px;
+    background: none;
+    transition: 1s;
+    will-change: contents;
+  }
+  progress::-webkit-progress-bar {
+    background-color: #CCCCCC;
+  }
+  progress::-webkit-progress-value {
+    background-color: #0069D9;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .form-progress-indicator {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: #CCCCCC;
+    border: 0.4px solid white;
+    border-radius: 50%;
+    transition: all .2s ease-in-out;
+    transition-delay: .3s;
+    will-change: transform;
+  }
+  .form-progress-indicator.one {
+    left: 8%;
+  }
+  .form-progress-indicator.two {
+    left: 36%;
+  }
+  .form-progress-indicator.three {
+    left: 64%;
+  }
+  .form-progress-indicator.four {
+    left: 92%;
+  }
+
+  .form-progress-indicator.one.active {
+    background: url('./images/objective.png') no-repeat;
+    background-position: center;
+  }
+  .form-progress-indicator.two.active {
+    background: url('./images/professional.png') no-repeat;
+    background-position: center;
+  }
+  .form-progress-indicator.three.active {
+    background: url('./images/edu.png') no-repeat;
+    background-position: center;
+  }
+  .form-progress-indicator.four.active {
+    background: url('./images/techskills.png') no-repeat;
+    background-position: center;
+  }
+
+
+  .form-progress-indicator.active {
+    -webkit-animation: bounce .5s forwards;
+            animation: bounce .5s forwards;
+    -webkit-animation-delay: .5s;
+            animation-delay: .5s;
+    border: 2px solid #0069D9;
+    background: #0069D9;
+    top: -20px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .form-progress-indicator.done {
+    -webkit-animation: bounce .5s forwards;
+            animation: bounce .5s forwards;
+    -webkit-animation-delay: .5s;
+            animation-delay: .5s;
+    border: none;
+    background: #0069D9;
+  }
+
+  .animation-container {
+    position: relative;
+    width: 100%;
+    transition: .3s;
+    will-change: padding;
+  }
+
+  .form-step {
+
+    transition: 1s ease-in-out;
+    transition-timing-function: ease-in-out;
+    will-change: transform, opacity;
+  }
+
+  .form-step.leaving {
+    -webkit-animation: left-and-out .5s forwards;
+            animation: left-and-out .5s forwards;
+  }
+
+  .form-step.waiting {
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
+  }
+
+  .form-step.coming {
+    -webkit-animation: right-and-in .5s forwards;
+            animation: right-and-in .5s forwards;
+  }
+
+  @-webkit-keyframes left-and-out {
+    100% {
+      opacity: 0;
+      -webkit-transform: translateX(-400px);
+              transform: translateX(-400px);
+    }
+  }
+
+  @keyframes left-and-out {
+    100% {
+      opacity: 0;
+      -webkit-transform: translateX(-400px);
+              transform: translateX(-400px);
+    }
+  }
+  @-webkit-keyframes right-and-in {
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+  }
+  @keyframes right-and-in {
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+  }
+  @-webkit-keyframes bounce {
+    50% {
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+  @keyframes bounce {
+    50% {
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .form-group {
+    margin-bottom: 2rem;
+  }
+
+  #form2, #form3, #form4, #form5 {
+    min-width: 600px;
+  }
+
+
+  /* Gear */
+
+  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+  .load {
+    position: relative;
+    margin: 50px auto;
+    width: 100px;
+    height: 80px;
+  }
+
+  .gear {
+    position: absolute;
+    z-index: -10;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 5s infinite;
+            animation: spin 5s infinite;
+  }
+
+  .gear_two {
+    left: 40px;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin-reverse 5s infinite;
+            animation: spin-reverse 5s infinite;
+  }
+
+  .gear_three {
+    top: 45px;
+    left: -10px;
+    width: 60px;
+    height: 60px;
+  }
+
+  @-webkit-keyframes spin {
+    50% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    50% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spin-reverse {
+    50% {
+      -webkit-transform: rotate(-360deg);
+              transform: rotate(-360deg);
+    }
+  }
+  @keyframes spin-reverse {
+    50% {
+      -webkit-transform: rotate(-360deg);
+              transform: rotate(-360deg);
+    }
+  }
+  .lil-circle {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px 2px gray, 0 0 50px white;
+    width: 100px;
+    height: 100px;
+    opacity: 0.65;
+  }
+
+  .blur-circle {
+    position: absolute;
+    top: -19px;
+    left: -19px;
+  }
+
+  .text {
+    color: gray;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+  }
+
+  .centerdiv {
+   width: 400px;
+   height: 400px;
+   position: absolute;
+   left: 48%;
+   top: 48%;
+   margin-left: -150px;
+   margin-top: -150px;
+}
+
+  .nav-tabs {
+      border-right: 1px solid #dee2e6;
+      border-bottom: 0;
+  }
+
+  .nav-tabs .nav-link.active {
+    border-color: #dee2e6 #fff #dee2e6 #dee2e6;
+  }
+
+  .nav-tabs .nav-link {
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: 0;
+  }
+
+  .nav-tabs .nav-item {
+      margin-right: -1px;
+  }
+
+  #section3 .tab-pane > ol {
+    list-style-type: none;
+    line-height: 3;
+  }
+
+  #section3 .tab-pane ol > li {
+    counter-increment: step-counter;
+    margin-bottom: 10px;
+  }
+
+  #section3 .tab-pane ol li >  ul {
+    padding-left: 80px;
+    line-height: 1.5;
+  }
+
+  #section3 .tab-pane ol > li:before {
+    content: counter(step-counter);
+    margin-right: 5px;
+    font-size: 80%;
+    background-color: rgb(0,200,200);
+    color: white;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  /* Aw snap */
+
+
+.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+
+ background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+ }
+
+
+ .four_zero_four_bg h1{
+ font-size:80px;
+ }
+
+  .four_zero_four_bg h3{
+			 font-size:80px;
+			 }
+
+			 .link_404{
+	color: #fff!important;
+    padding: 10px 20px;
+    background: #39ac31;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-50px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header" style="min-height: 80px;">
+            <a class="navbar-brand" href="#">
+              <img style="margin-left: -35px;width: 200px; height: 69.4px;" src="https://www.insaid.co/wp-content/uploads/2018/11/INSAID_Logo_with-INSAID-Text-3.png" alt=" logo">
+            </a>
+          </div>
+        </div><!-- /.container -->
+      </nav>
+    </div>
+  </header>
+  <section class="container" id="section1">
+  	<!-- <h1>So you think you can create an ID?</h1> -->
+
+  	<div class="form-progress">
+  		<progress class="form-progress-bar" min="0" max="100" value="8" step="28" aria-labelledby="form-progress-completion"></progress>
+
+  		<div class="form-progress-indicator one active"></div>
+  		<div class="form-progress-indicator two"></div>
+  		<div class="form-progress-indicator three"></div>
+  		<div class="form-progress-indicator four"></div>
+
+  		<p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete</p>
+  	</div>
+
+
+  	<div class="animation-container">
+  		<!-- Step one -->
+  		<div class="form-step js-form-step text-center" data-step="1">
+
+  			<h4 class="text-left"><strong>Select your<br>Data Science Career<br>Objective</strong><br>
+  				<!-- Please fill out the fields below so we can learn some information about you. We promise to store these on Post-It<sup><small>TM</small></sup> notes around the office. -->
+        </h4>
+
+  			<form id="form1" name="form-step-1" class="mt-1 d-inline-block text-left needs-validation" novalidate>
+          <div class="form-group">
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="customRadio" name="objective" value="learn" required>
+              <label class="custom-control-label" for="customRadio">Learn Data Analytics, Machine Learning & AI</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="customRadio2" name="objective" value="transition" required>
+              <label class="custom-control-label" for="customRadio2">Transition into a Data Analytics or Machine Learning role </label>
+            </div>
+            <div class="invalid-feedback">Please select an option</div>
+          </div>
+          <div id="showTransitionOption" style="display: none">
+            <div class="form-group">
+              <select name="transitionOptions" id="transitionOptions" class="custom-select">
+                <option value="" selected>By when would you like to apply for Data Science job roles?</option>
+                <option value="apply1">6-12 months</option>
+                <option value="apply2">after 12 months</option>
+              </select>
+              <div class="invalid-feedback">Please select an option</div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="careerBreak" name="careerBreak">
+                <label class="custom-control-label" for="careerBreak">Do you have any break in career? (Check if Yes!)</label>
+              </div>
+            </div>
+          </div>
+          <div id="showBreakOption" style="display: none">
+            <div class="form-group form-check-inline mb-0">
+              <select name="forYear" id="forYear" class="custom-select">
+                <option value="" selected>Years</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">&gt; 2 years</option>
+              </select>
+              <br><div class="invalid-feedback">Choose number of years</div>
+            </div>
+            <div class="form-group form-check-inline mb-0">
+              <select name="forMonth" id="forMonth" class="custom-select">
+                <option value="" selected>Months</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+              <br><div class="invalid-feedback">Choose number of months</div>
+            </div>
+          </div>
+  				<div class="buttons form-group justify-content-between mt-5">
+  						<button type="button" class="btn btn-alt js-reset btn-outline-primary">Reset</button>
+
+  						<button type="submit" class="btn btn-primary">Continue</button>
+  				</div>
+  			</form>
+
+  		</div>
+
+  			<!-- Step two -->
+  			<div class="form-step js-form-step text-center waiting hidden" data-step="2">
+
+          <h4 class="text-left"><strong>Professional</strong><br>
+    				<!-- Please fill out the fields below so we can learn some information about you. We promise to store these on Post-It<sup><small>TM</small></sup> notes around the office. -->
+          </h4>
+
+  				<form id="form2" name="form-step-2" class="mt-4 d-inline-block text-left needs-validation" novalidate>
+            <div class="form-group">
+              <input class="form-control" type="text" id="currentorg" placeholder="Current Organisation" required>
+              <!-- <select class="form-control" id="currentorg" placeholder="Current Organisation" required>
+              </select> -->
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" id="currentdesig" placeholder="Current Designation" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="number" step="0.01" id="workexp" placeholder="Years of Work Experience" required>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="handlingTeam" name="handlingTeam">
+                <label class="custom-control-label" for="handlingTeam">Are you handling any team? (Check if Yes!)</label>
+              </div>
+            </div>
+            <div id="showTeamOption" style="display: none">
+              <div class="form-group">
+                <select name="teamSize" id="teamSize" class="custom-select">
+                  <option value="" selected>What is your team size?</option>
+                  <option value="team_1">1-10</option>
+                  <option value="team_2">11-20</option>
+                  <option value="team_3">21-30</option>
+                  <option value="team_4">31-50</option>
+                  <option value="team_5">51-100</option>
+                  <option value="team_6">&gt;100</option>
+                </select>
+                <div class="invalid-feedback">Example invalid custom select feedback</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <select name="industry" id="industry" class="custom-select" required>
+                <option value="" selected>Which industry you're currently working for?</option>
+                <option value="IT">IT/ITES</option>
+                <option value="BFSI">BFSI</option>
+                <option value="consulting">Consulting</option>
+                <option value="ecommerce">eCommerce</option>
+                <option value="retail">Retail</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="telecom">Telecom</option>
+                <option value="aviation">Aviation</option>
+                <option value="others">Others(specify)</option>
+              </select>
+              <div class="invalid-feedback">Example invalid custom select feedback</div>
+            </div>
+    				<div class="buttons form-group justify-content-between mt-5">
+    						<button type="button" class="btn btn-alt js-reset btn-outline-primary ml-0 mr-0">Reset</button>
+
+    						<button type="submit" class="btn btn-primary ml-0 mr-0">Continue</button>
+    				</div>
+    			</form>
+
+  		</div>
+
+
+
+  					<!-- Step three -->
+  			<div class="form-step js-form-step text-center waiting hidden" data-step="3">
+
+          <h4 class="text-left"><strong>Educational Background</strong><br>
+    				<!-- Please fill out the fields below so we can learn some information about you. We promise to store these on Post-It<sup><small>TM</small></sup> notes around the office. -->
+          </h4>
+
+  				<form id="form3" name="form-step-3" class="mt-4 d-inline-block text-left needs-validation" novalidate>
+            <div class="form-group">
+              <select name="highestqualification" id="highestqualification" class="custom-select" required>
+                <option value="" selected>Whats your highest education qualification?</option>
+                <option value="bachelor">B.Tech/B.Sc/B.Com/BCA</option>
+                <option value="masters">M.Tech/M.Sc/M.Com</option>
+                <option value="MCA">MCA</option>
+                <option value="MBA">MBA</option>
+                <option value="PhD">PhD</option>
+              </select>
+              <div class="invalid-feedback">Example invalid custom select feedback</div>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" id="university" placeholder="Which University you've graduated from?" required>
+            </div>
+    				<div class="buttons form-group justify-content-between mt-5">
+    						<button type="button" class="btn btn-alt js-reset btn-outline-primary ml-0 mr-0">Reset</button>
+
+    						<button type="submit" class="btn btn-primary ml-0 mr-0">Continue</button>
+    				</div>
+    			</form>
+
+  		</div>
+
+
+
+  		<!-- Step four -->
+  			<div class="form-step js-form-step text-center waiting hidden" data-step="4">
+
+          <h4 class="text-left"><strong>Technical Skills</strong><br>
+    				<!-- Please fill out the fields below so we can learn some information about you. We promise to store these on Post-It<sup><small>TM</small></sup> notes around the office. -->
+          </h4>
+
+  				<form id="form4" name="form-step-4" class="mt-4 d-inline-block text-left needs-validation" novalidate>
+            <div class="form-group">
+              <h5>How would you rate your programming skills?</h5>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="nonprogrammer" name="skillrating" value="nonprogrammer" required>
+                <label class="custom-control-label" for="nonprogrammer">Non-programmer</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="beginner" name="skillrating" value="beginner" required>
+                <label class="custom-control-label" for="beginner">Beginner</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="intermediate" name="skillrating" value="intermediate" required>
+                <label class="custom-control-label" for="intermediate">Intermediate</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="expert" name="skillrating" value="expert" required>
+                <label class="custom-control-label" for="expert">Expert</label>
+              </div>
+              <div class="invalid-feedback">Select an option</div>
+            </div>
+            <div class="form-group">
+              <h5>How would you rate your domain knowledge?</h5>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="industry" name="domainrate" value="industry" required>
+                <label class="custom-control-label" for="industry">Industry</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="dbeginner" name="domainrate" value="beginner" required>
+                <label class="custom-control-label" for="dbeginner">Beginner</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="dintermediate" name="domainrate" value="intermediate" required>
+                <label class="custom-control-label" for="dintermediate">Intermediate</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="dexpert" name="domainrate" value="expert" required>
+                <label class="custom-control-label" for="dexpert">Expert</label>
+              </div>
+              <div class="invalid-feedback">Select an option</div>
+            </div>
+    				<div class="buttons form-group justify-content-between mt-5">
+    						<button type="button" class="btn btn-alt js-reset btn-outline-primary ml-0 mr-0">Reset</button>
+
+    						<button type="submit" class="btn btn-primary ml-0 mr-0">Continue</button>
+    				</div>
+    			</form>
+
+  		</div>
+
+      <!-- Step five -->
+      <!-- <div class="form-step js-form-step text-center waiting hidden" data-step="5">
+
+          <h4 class="text-left"><strong>Personal</strong><br>
+
+          </h4>
+
+          <form id="form5" name="form-step-5" class="mt-4 d-inline-block text-left needs-validation" novalidate>
+            <div class="form-group">
+              <input class="form-control" type="text" id="username" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="tel" id="mobile" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="number" id="age" placeholder="Age" required>
+            </div>
+            <div class="form-group">
+              <select name="gender" id="gender" class="custom-select" required>
+                <option value="" selected>Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="invalid-feedback">Example invalid custom select feedback</div>
+            </div>
+            <div class="buttons form-group justify-content-between mt-5">
+                <button type="button" class="btn btn-alt js-reset btn-outline-primary ml-0 mr-0">Reset</button>
+
+                <button type="submit" class="btn btn-primary ml-0 mr-0">Show My Path</button>
+            </div>
+          </form>
+      </div> -->
+      <div class="form-step js-form-step text-center waiting hidden" data-step="5">
+
+        <h4 class="text-left"><strong>Technical Skills</strong><br>
+          <!-- Please fill out the fields below so we can learn some information about you. We promise to store these on Post-It<sup><small>TM</small></sup> notes around the office. -->
+        </h4>
+
+        <form id="form5" name="form-step-5" class="mt-4 d-inline-block text-left needs-validation" novalidate>
+          <div class="form-group">
+            <h5>Select math topics you're familiar with?</h5>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="mathtopic1" name="mathtopic" required>
+              <label class="custom-control-label" for="mathtopic1">Statistics</label>
+            </div>
+            <div id="statsOptions" class="mt-2 form-group" style="display:none">
+              <h6 class="">Expertise</h6>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="statistics_beginner" name="statistics" value="beginner">
+                <label class="custom-control-label" for="statistics_beginner">Beginner</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="statistics_intermediate" name="statistics" value="intermediate">
+                <label class="custom-control-label" for="statistics_intermediate">Intermediate</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="statistics_expert" name="statistics" value="expert">
+                <label class="custom-control-label" for="statistics_expert">Expert</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="mathtopic2" name="mathtopic" required>
+              <label class="custom-control-label" for="mathtopic2">Probability</label>
+            </div>
+            <div id="probabOptions" class="mt-2 form-group" style="display:none">
+              <h6 class="">Expertise</h6>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="probability_beginner" name="probability" value="beginner">
+                <label class="custom-control-label" for="probability_beginner">Beginner</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="probability_intermediate" name="probability" value="intermediate">
+                <label class="custom-control-label" for="probability_intermediate">Intermediate</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="probability_expert" name="probability" value="expert">
+                <label class="custom-control-label" for="probability_expert">Expert</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="mathtopic3" name="mathtopic" required>
+              <label class="custom-control-label" for="mathtopic3">Linear Algebra</label>
+            </div>
+            <div id="linearOptions" class="mt-2 form-group" style="display:none">
+              <h6 class="">Expertise</h6>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="linearalgebra_beginner" name="linearalgebra" value="beginner">
+                <label class="custom-control-label" for="linearalgebra_beginner">Beginner</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="linearalgebra_intermediate" name="linearalgebra" value="intermediate">
+                <label class="custom-control-label" for="linearalgebra_intermediate">Intermediate</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="linearalgebra_expert" name="linearalgebra" value="expert">
+                <label class="custom-control-label" for="linearalgebra_expert">Expert</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="mathtopic4" name="mathtopic" required>
+              <label class="custom-control-label" for="mathtopic4">Calculus</label>
+            </div>
+            <div id="calcOptions" class="mt-2 form-group" style="display:none">
+              <h6 class="">Expertise</h6>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="calc_beginner" name="calculus" value="beginner">
+                <label class="custom-control-label" for="calc_beginner">Beginner</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="calc_intermediate" name="calculus" value="intermediate">
+                <label class="custom-control-label" for="calc_intermediate">Intermediate</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="calc_expert" name="calculus" value="expert">
+                <label class="custom-control-label" for="calc_expert">Expert</label>
+              </div>
+            </div>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+          </div>
+
+          <div class="buttons form-group justify-content-between mt-5">
+              <button type="button" class="btn btn-alt js-reset btn-outline-primary ml-0 mr-0">Reset</button>
+
+              <button type="submit" class="btn btn-primary ml-0 mr-0">Show Results</button>
+          </div>
+        </form>
+      </div>
+  	</div>
+  </section>
+  <section class="container centerdiv" id="section2" style="display:none">
+    <div class="load">
+      <div class="gear one">
+        <svg id="blue" viewbox="0 0 100 100" fill="#94DDFF">
+          <path d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z"></path>
+        </svg>
+      </div>
+      <div class="gear gear_two">
+        <svg id="pink" viewbox="0 0 100 100" fill="#FB8BB9">
+          <path d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z"></path>
+        </svg>
+      </div>
+      <div class="gear gear_three">
+        <svg id="yellow" viewbox="0 0 100 100" fill="#FFCD5C">
+          <path d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z"></path>
+        </svg>
+      </div>
+      <div class="lil-circle"></div>
+      <svg class="blur-circle">
+        <filter id="blur">
+          <fegaussianblur in="SourceGraphic" stddeviation="13"></fegaussianblur>
+        </filter>
+        <circle cx="70" cy="70" r="66" fill="transparent" stroke="white" stroke-width="40" filter="url(#blur)"></circle>
+      </svg>
+    </div>
+    <div class="text">Please wait while your results are loading ...</div>
+  </section>
+  <section class="container" id="section3" style="display:none">
+      <div class="row">
+        <div class="col-md-3 mb-3">
+          <div class="mt-4 mb-4" style="padding: .5rem 1rem;">
+            <h4>Suitable Careers</h4>
+          </div>
+          <ul class="nav nav-tabs flex-column" id="myTab" role="tablist">
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="datatab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Data Analyst</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="businesstab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="true">Business Analyst</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="srdatatab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="true">Sr. Data Analyst</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="srbusinesstab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="true">Sr. Business Analyst</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="dataengtab" data-toggle="tab" href="#tab5" role="tab" aria-controls="tab5" aria-selected="true">Data Engineer</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="mlengtab" data-toggle="tab" href="#tab6" role="tab" aria-controls="tab6" aria-selected="true">ML Engineer</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="dataarchtab" data-toggle="tab" href="#tab7" role="tab" aria-controls="tab7" aria-selected="true">Data Architect</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="datascitab" data-toggle="tab" href="#tab8" role="tab" aria-controls="tab8" aria-selected="true">Data Scientist</a>
+            </li>
+            <li class="nav-item" style="display:none">
+              <a class="nav-link" id="datascicontab" data-toggle="tab" href="#tab9" role="tab" aria-controls="tab9" aria-selected="true">Data Science Consultant</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-9">
+          <div class="tab-content" id="myTabContent">
+            <div class="mt-4 mb-4" style="padding: .5rem 0; ">
+              <h4>Skillset Recommendations</h4>
+            </div>
+            <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="datatab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Basic (Python, R, SAS, VB, Macros)</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Basic - Not mandatory but fair knowldege will certainly help</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Advanced</li>
+                    </ul>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="businesstab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Basic (Python, R, SAS)</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Basic - Not mandatory but fair knowldege will certainly help</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Advanced</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Domain Knowledge</strong>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="srdatatab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Intermediate (Python, R, SAS, VB, Macros)</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Advanced</li>
+                      <li>Linear Algebra - Basic</li>
+                      <li>Calculus - Basic</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Advanced</li>
+                    </ul>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="srbusinesstab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Basic (Python, R, SAS)</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Advanced</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Basic</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Advanced</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Domain Knowledge</strong>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="dataengtab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Big Data(Hadoop, Spark)</li>
+                      <li> DVC</li>
+                      <li> CI/CD(Jenkins, Kubernet, Docker)</li>
+                      <li> OS</li>
+                      <li> Database</li>
+                      <li> Linux</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Basic</li>
+                    </ul>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="mlengtab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Big Data(Hadoop, Spark)</li>
+                      <li>DVC</li>
+                      <li>CI/CD(Jenkins, Kubernet, Docker)</li>
+                      <li>OS</li>
+                      <li>Database</li>
+                      <li>Linux</li>
+                      <li>Advanced(Python, R, Deep Leaning Frameworks(Tensor Flow/Kera, PyTorch))</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Advanced</li>
+                      <li>Linear Algebra - Intermediate</li>
+                      <li>Calculus - Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Basic</li>
+                      <li>ML Advanced + Deep Learning</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Domain Knowledge</strong>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="dataarchtab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>J2EE</li>
+                      <li>Java</li>
+                      <li>Hadoop</li>
+                      <li>C</li>
+                      <li>PHP</li>
+                      <li>Cloud Computing</li>
+                      <li>Ruby</li>
+                      <li>Database</li>
+                      <li>Networking and Performance Managment</li>
+                      <li>OS</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Applied Maths and Statistics</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Advanced</li>
+                    </ul>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab8" role="tabpanel" aria-labelledby="datascitab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Advanced (Python, R, Deep Leaning Frameworks(Tensor Flow/Kera, PyTorch))</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Advanced</li>
+                      <li>Linear Algebra - Intermediate</li>
+                      <li>Calculus - Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Advanced + Deep Learning</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Domain Knowledge</strong>
+                  </li>
+                </ol>
+              </p>
+            </div>
+            <div class="tab-pane fade" id="tab9" role="tabpanel" aria-labelledby="datascicontab">
+              <p>
+                <ol>
+                  <li>
+                    <strong>Programming</strong>
+                    <ul>
+                      <li>Advanced (Python, R, Deep Leaning Frameworks(Tensor Flow/Kera, PyTorch))</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Math</strong>
+                    <ul>
+                      <li>Statistics - Advanced</li>
+                      <li>Linear Algebra - Intermediate</li>
+                      <li>Calculus - Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Machine Learning</strong>
+                    <ul>
+                      <li>ML Advanced + Deep Learning</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Visualization</strong>
+                    <ul>
+                      <li>Intermediate</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Domain Knowledge</strong>
+                  </li>
+                  <li>
+                    <strong>Consulting Experience</strong>
+                  </li>
+                </ol>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-md-8 -->
+      </div>
+    <!-- /.container -->
+  </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+  <script>
+
+  $.getJSON( "./data/companies.json", function( data ) {
+    var items = [];
+    $.each( data, function( key, val ) {
+
+      //items.push( "<option value='" + key + "'>" + val + "</option>" );
+    });
+
+    $("#currentorg").html( items);
+  });
+
+  var $body = $('body');
+  var $progressBar = $('progress');
+  var $animContainer = $('.animation-container');
+  var value = 8;
+  var transitionEnd = 'webkitTransitionEnd transitionend';
+
+  /**
+   * Generate Result
+   * ==========================================
+   */
+  function getResults(){
+    var objective = $("input[name='objective']:checked").val();
+    if(objective == "transition") {
+      var applywhen = $("#transitionOptions").val();
+      if($("#careerBreak").is(":checked")){
+        var cbreak = 'yes';
+        var year = $("#forYear").val();
+        var month = $("#forMonth").val();
+        var totalbreaktime = year*12+month;
+      }
+    }
+
+    var currentorg = $("#currentorg").val();
+    var currentdesig = $("#currentdesig").val();
+    var workexp = $("#workexp").val();
+    var industry = $("#industry").val();
+    if($("#handlingTeam").is(":checked")){
+      var team = 'yes';
+      var teamsize = $("#teamSize").val();
+    }
+
+
+    var highestqualification = $("#highestqualification").val();
+    var university = $("#university").val();
+
+    var skillrating = $("input[name='skillrating']:checked").val();
+    var domainrate = $("input[name='domainrate']:checked").val();
+
+    if ($("#mathtopic1").is(":checked")){
+      var mathtopic1 = "statistics";
+      var expertise1 = $("input[name='"+mathtopic1+"']:checked").val();
+
+    }
+    if ($("#mathtopic2").is(":checked")){
+      var mathtopic2 = "probability";
+      var expertise2 = $("input[name='"+mathtopic2+"']:checked").val();
+
+    }
+    if ($("#mathtopic3").is(":checked")){
+      var mathtopic3 = "linearalgebra";
+      var expertise3 = $("input[name='"+mathtopic3+"']:checked").val();
+
+    }
+    if ($("#mathtopic4").is(":checked")){
+      var mathtopic4 = "calculus";
+      var expertise4 = $("input[name='"+mathtopic4+"']:checked").val();
+
+    }
+
+    //var job_roles = [];
+
+    if(objective == "learn")
+    {
+      if(workexp < 8){
+        if(highestqualification == "bachelor" || highestqualification == "masters" || highestqualification == "MBA" || highestqualification == "MCA"){
+          if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra"){
+            job_roles = ['Data Analyst','Business Analyst'];
+            $("#datatab").parents(":first").show();
+            $("#businesstab").parents(":first").show();
+            $("#datatab").addClass("active");
+            $("#tab1").addClass("show active");
+          }
+          else{
+            $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+          }
+        }
+        else{
+          $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+        }
+      }
+      else{
+        $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+      }
+    }
+    else if(objective == "transition"){
+      if(applywhen == "apply1"){
+        if(cbreak == "yes"){
+          if(totalbreaktime < 24){
+            if(workexp < 8){
+              if(highestqualification == "bachelor" || highestqualification == "masters" || highestqualification == "MBA" || highestqualification == "MCA"){
+                if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra"){
+                  job_roles = ['Data Analyst','Business Analyst'];
+                  $("#datatab").parents(":first").show();
+                  $("#businesstab").parents(":first").show();
+                  $("#datatab").addClass("active");
+                  $("#tab1").addClass("show active");
+                }
+                else{
+                  $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                }
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else{
+            $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+          }
+        }
+        else{
+          if(workexp > 5 && skillrating == "expert"){
+            if(highestqualification == "masters" || highestqualification == "MCA" || highestqualification == "MBA" || highestqualification == "PhD" ){
+              if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra" || mathtopic4 == "calculus"){
+                if ((expertise1 == "expert" && expertise2 == "expert") || (expertise2 == "expert" && expertise3 == "expert") || (expertise3 == "expert" && expertise4 == "expert") || (expertise1 == "expert" && expertise3 == "expert")|| (expertise1 == "expert" && expertise4 == "expert") || (expertise2 == "expert" && expertise4 == "expert")){
+                  job_roles = ["Data Scientist","Data Science Consultant"];
+                  $("#datascitab").parents(":first").show();
+                  $("#datascicontab").parents(":first").show();
+                  $("#datascitab").addClass("active");
+                  $("#tab8").addClass("show active");
+                }
+                else{
+                  $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                }
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else if (workexp < 8){
+            if(highestqualification == "bachelor" || highestqualification == "masters" || highestqualification == "MCA"){
+              if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra"){
+                if ((expertise1 == "expert" && expertise2 == "expert") || (expertise2 == "expert" && expertise3 == "expert") || (expertise1 == "expert" && expertise3 == "expert")){
+                  if(skillrating == "beginner"){
+                    job_roles = ["Data Engineer"];
+                    $("#dataengtab").parents(":first").show();
+                    $("#dataengtab").addClass("active");
+                    $("#tab5").addClass("show active");
+                  }
+                  else if(skillrating == "intermediate"){
+                    job_roles = ["ML Engineer"];
+                    $("#mlengtab").parents(":first").show();
+                    $("#mlengtab").addClass("active");
+                    $("#tab6").addClass("show active");
+
+                  }
+                  else if(workexp > 4 && skillrating == "expert") {
+                    job_roles = ["Data Architect"];
+                    $("#dataarchtab").parents(":first").show();
+                    $("#dataarchtab").addClass("active");
+                    $("#tab7").addClass("show active");
+                  }
+                  else{
+                    $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                  }
+                }
+                else{
+                  $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                }
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else{
+            $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+          }
+        }
+      }
+      else if(applywhen == "apply2"){
+        if(typeof cbreak === "undefined"){
+          if(workexp > 5 && skillrating == "expert"){
+            if(highestqualification == "masters" || highestqualification == "MCA" || highestqualification == "MBA" || highestqualification == "PhD" ){
+              if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra" || mathtopic4 == "calculus"){
+                if ((expertise1 == "expert" && expertise2 == "expert") || (expertise2 == "expert" && expertise3 == "expert") || (expertise3 == "expert" && expertise4 == "expert") || (expertise1 == "expert" && expertise3 == "expert")|| (expertise1 == "expert" && expertise4 == "expert") || (expertise2 == "expert" && expertise4 == "expert")){
+                  job_roles = ["Data Scientist","Data Science Consultant"];
+                  $("#datascitab").parents(":first").show();
+                  $("#datascicontab").parents(":first").show();
+                  $("#datascitab").addClass("active");
+                  $("#tab8").addClass("show active");
+                }
+                else{
+                  $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                }
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else if (workexp < 8){
+            if(highestqualification == "bachelor" || highestqualification == "masters" || highestqualification == "MCA"){
+              if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra"){
+                if ((expertise1 == "expert" && expertise2 == "expert") || (expertise2 == "expert" && expertise3 == "expert") || (expertise1 == "expert" && expertise3 == "expert")){
+                  if(skillrating == "beginner"){
+                    job_roles = ["Data Engineer"];
+                    $("#dataengtab").parents(":first").show();
+                    $("#dataengtab").addClass("active");
+                    $("#tab5").addClass("show active");
+                  }
+                  else if(skillrating == "intermediate"){
+                    job_roles = ["ML Engineer"];
+                    $("#mlengtab").parents(":first").show();
+                    $("#mlengtab").addClass("active");
+                    $("#tab6").addClass("show active");
+
+                  }
+                  else if(workexp > 4 && skillrating == "expert") {
+                    job_roles = ["Data Architect"];
+                    $("#dataarchtab").parents(":first").show();
+                    $("#dataarchtab").addClass("active");
+                    $("#tab7").addClass("show active");
+                  }
+                  else{
+                    $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                  }
+                }
+                else{
+                  $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                }
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else if(workexp > 8){
+            if(highestqualification == "bachelor" || highestqualification == "masters" || highestqualification == "MBA" || highestqualification == "MCA"){
+              if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra"){
+                job_roles = ["Sr. Data Analyst","Sr. Business Analyst"];
+                $("#srdatatab").parents(":first").show();
+                $("#srbusinesstab").parents(":first").show();
+                $("#srdatatab").addClass("active");
+                $("#tab3").addClass("show active");
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else{
+            $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+          }
+        }
+        else if(cbreak == "yes"){
+          if(totalbreaktime < 24){
+            if(workexp < 8){
+              if(highestqualification == "bachelor" || highestqualification == "masters" || highestqualification == "MBA" || highestqualification == "MCA"){
+                if(mathtopic1 == "statistics" || mathtopic2 == "probability" || mathtopic3 == "linearalgebra"){
+                  job_roles = ['Data Analyst','Business Analyst'];
+                  $("#datatab").parents(":first").show();
+                  $("#businesstab").parents(":first").show();
+                  $("#datatab").addClass("active");
+                  $("#tab1").addClass("show active");
+                }
+                else{
+                  $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+                }
+              }
+              else{
+                $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+              }
+            }
+            else{
+              $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+            }
+          }
+          else{
+            $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+          }
+        }
+        else{
+          $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+        }
+      }
+      else{
+        $("#section3").html('<section class="page_404"><div class="container"><div class="row"><div class="col-sm-12 " style="text-align: -webkit-center; text-align: -moz-center; text-align: -o-center"><div class="col-sm-10 col-sm-offset-1 text-center"><div class="four_zero_four_bg"><h1 class="text-center ">Aw Snap!</h1></div><div class="contant_box_404"><h3 class="h2"> Look like you\'re lost</h3><p>there are no recommendations for you for now!</p> <a href="javascript:window.location.reload(true)" class="link_404">Restart</a></div></div></div></div></div> </section>');
+      }
+    }
+    //typeof
+    //console.log(job_roles);
+    $("#section1").hide();
+
+    hide = function(){
+      $("#section2").hide();
+      $("#section3").show();
+    };
+
+    $("#section2").show();
+
+    setTimeout(hide, 5000);
+
+  }
+
+  /**
+   * Resets the form back to the default state.
+   * ==========================================
+   */
+  function formReset() {
+  	value = 8;
+  	$progressBar.val(value);
+  	$('form input').not('button').val('').removeClass('hasInput');
+  	$('.js-form-step').removeClass('left leaving');
+  	$('.js-form-step').not('.js-form-step[data-step="1"]').addClass('hidden waiting');
+  	$('.js-form-step[data-step="1"]').removeClass('hidden');
+  	$('.form-progress-indicator').not('.one').removeClass('active');
+
+  	// $animContainer.css({
+  	// 	'paddingBottom': $('.js-form-step[data-step="1"]').height() + 'px'
+  	// });
+
+  	console.warn('Form reset.');
+  	return false;
+  }
+
+  /**
+   * Sets up the click handlers on the form. Next/reset.
+   * ===================================================
+   */
+  function setupClickHandlers() {
+
+  	// Show next form on continue click
+  	$('button[type="submit"]').on('click', function(event) {
+        event.preventDefault();
+        var forms = $(this).parents('form:first');
+
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          //form.addEventListener('submit', function(e) {
+            if (form.checkValidity() === false) {
+              event.stopPropagation();
+
+              if (!$("input:radio[name='objective']").is(":checked")) {
+                $("#customRadio2").parent().siblings(".invalid-feedback").css("display", "block");
+              } else {
+                $("#customRadio2").parent().siblings(".invalid-feedback").css("display", "none");
+              }
+
+              if (!$("input:checkbox[name='mathtopic']").is(":checked")) {
+                $("#mathtopic4").parent().siblings(".invalid-feedback").css("display", "block");
+              } else {
+                $("#mathtopic4").parent().siblings(".invalid-feedback").css("display", "none");
+              }
+            }
+            else if(form.id == "form5"){
+              getResults();
+            }
+            else{
+              var $currentForm = $(form).parents('.js-form-step');
+        			showNextForm($currentForm);
+            }
+
+            form.classList.add('was-validated');
+        //  }, false);
+        });
+
+  	});
+
+
+    $('input[type=radio][name=objective]').change(function() {
+      if($(this).val() == "transition"){
+        $("#showTransitionOption").show();
+        $("#transitionOptions").attr("required", "required");
+      }
+      else{
+        $("#showTransitionOption").hide();
+        $("#transitionOptions").removeAttr("required");
+      }
+      $("#customRadio2").parent().siblings(".invalid-feedback").css("display", "none");
+    });
+
+
+
+    $('input[type=checkbox][name=careerBreak]').change(function() {
+
+      if($(this).is(":checked")){
+        $("#showBreakOption").show();
+        $("#forYear").attr("required", "required");
+        $("#forMonth").attr("required", "required");
+      }
+      else{
+        $("#showBreakOption").hide();
+        $("#forYear").removeAttr("required");
+        $("#forMonth").removeAttr("required");
+      }
+    });
+
+    $('input[type=checkbox][name=mathtopic]').change(function() {
+      var checkboxes = $('input[type=checkbox][name=mathtopic]');
+
+      var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+      if(checkedOne == true){
+        $("#form5").removeClass('was-validated');
+        $('input[type=checkbox][name=mathtopic]:not(:checked)').each(function () {
+          $(this).removeAttr("required");
+        });
+      }
+      else{
+        $('input[type=checkbox][name=mathtopic]').each(function () {
+          $(this).attr("required","required");
+        });
+        //$("#form5").addClass('was-validated');
+        //$("#mathtopic4").parent().siblings(".invalid-feedback").css("display", "block");
+      }
+
+      $("#mathtopic4").parent().siblings(".invalid-feedback").css("display", "none");
+
+      switch($(this).attr('id')){
+        case "mathtopic1":{
+            $("#statsOptions").toggle();
+            if($("#statsOptions").is(':visible')){
+              $('input[type=radio][name=statistics]').each(function () {
+                $(this).attr("required","required");
+              });
+            }
+            else{
+              $('input[type=radio][name=calculus]').each(function () {
+                $(this).removeAttr("required");
+              });
+            }
+          break;
+        }
+        case "mathtopic2":{
+            $("#probabOptions").toggle();
+            if($("#probabOptions").is(':visible')){
+              $('input[type=radio][name=probability]').each(function () {
+                $(this).attr("required","required");
+              });
+            }
+            else{
+              $('input[type=radio][name=calculus]').each(function () {
+                $(this).removeAttr("required");
+              });
+            }
+          break;
+        }
+        case "mathtopic3":{
+            $("#linearOptions").toggle();
+            if($("#linearOptions").is(':visible')){
+              $('input[type=radio][name=linearalgebra]').each(function () {
+                $(this).attr("required","required");
+              });
+            }
+            else{
+              $('input[type=radio][name=calculus]').each(function () {
+                $(this).removeAttr("required");
+              });
+            }
+          break;
+        }
+        case "mathtopic4":{
+            $("#calcOptions").toggle();
+            if($("#calcOptions").is(':visible')){
+              $('input[type=radio][name=calculus]').each(function () {
+                $(this).attr("required","required");
+              });
+            }
+            else{
+              $('input[type=radio][name=calculus]').each(function () {
+                $(this).removeAttr("required");
+              });
+            }
+          break;
+          }
+        default:
+          $("#statsOptions").toggle();
+          $("#probabOptions").toggle();
+          $("#statsOptions").toggle();
+          $("#linearOptions").toggle();
+          break;
+      }
+    });
+
+
+    $('input[type=checkbox][name=handlingTeam]').change(function() {
+
+      if($(this).is(":checked")){
+        $("#showTeamOption").show();
+        $("#teamSize").attr("required", "required");
+      }
+      else{
+        $("#showTeamOption").hide();
+        $("#teamSize").removeAttr("required");
+      }
+    });
+
+  	// Reset form on reset button click
+  	$('.js-reset').on('click', function() {
+  		formReset();
+  	});
+
+  	return false;
+  }
+
+  /**
+   * Shows the next form.
+   * @param - Node - The current form.
+   * ======================================
+   */
+  function showNextForm($currentForm) {
+  	var currentFormStep = parseInt($currentForm.attr('data-step')) || false;
+  	var $nextForm = $('.js-form-step[data-step="' + (currentFormStep + 1) + '"]');
+
+  	console.log('Current step is ' + currentFormStep);
+  	console.log('The next form is # ' + $nextForm.attr('data-step'));
+
+  	$body.addClass('freeze');
+
+  	// Ensure top of form is in view
+  	$('html, body').animate({
+  		scrollTop : $progressBar.offset().top
+  	}, 'fast');
+
+  	// Hide current form fields
+  	$currentForm.addClass('leaving');
+  	setTimeout(function() {
+  		$currentForm.addClass('hidden');
+  	}, 500);
+
+  	// Animate container to height of form
+  	// $animContainer.css({
+  	// 	'paddingBottom' : $nextForm.height() + 'px'
+  	// });
+
+  	// Show next form fields
+  	$nextForm.removeClass('hidden')
+  					 .addClass('coming')
+  					 .one(transitionEnd, function() {
+  						 $nextForm.removeClass('coming waiting');
+  					 });
+
+  	// Increment value (based on 4 steps 0 - 100)
+  	value += 28;
+    console.log(value);
+  	// Reset if we've reached the end
+  	if (value >= 128) {
+  		formReset();
+  	} else {
+
+  		$('.form-progress')
+  			.find('.form-progress-indicator.active')
+        .removeClass('active')
+        .addClass('done')
+  			.next('.form-progress-indicator')
+  			.addClass('active');
+
+  		// Set progress bar to the next value
+      if(currentFormStep >= 4)
+  		  $progressBar.val(92);
+      else {
+        $progressBar.val(value);
+      }
+  	}
+
+  	// Update hidden progress descriptor (for a11y)
+  	$('.js-form-progress-completion').html($progressBar.val() + '% complete');
+
+  	$body.removeClass('freeze');
+
+  	return false;
+  }
+
+  /**
+   * Sets up and handles the float labels on the inputs.
+   =====================================================
+   */
+  // function setupFloatLabels() {
+  // 	// Check the inputs to see if we should keep the label floating or not
+  // 	$('form input').not('button').on('blur', function() {
+  //
+  // 		// Different validation for different inputs
+  // 		switch (this.tagName) {
+  // 			case 'SELECT':
+  // 				if (this.value > 0) {
+  // 					this.className = 'hasInput';
+  // 				} else {
+  // 					this.className = '';
+  // 				}
+  // 				break;
+  //
+  // 			case 'INPUT':
+  // 				if (this.value !== '') {
+  // 					this.className = 'hasInput';
+  // 				} else {
+  // 					this.className = '';
+  // 				}
+  // 				break;
+  //
+  // 			default:
+  // 				break;
+  // 		}
+  // 	});
+  //
+  // 	return false;
+  // }
+
+  /**
+   * Gets the party started.
+   * =======================
+   */
+  function init() {
+  	//formReset();
+  //	setupFloatLabels();
+  	setupClickHandlers();
+  }
+
+  init();
+  </script>
+</body>
+</html>
